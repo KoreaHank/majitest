@@ -4,21 +4,26 @@ import androidx.lifecycle.MutableLiveData
 import com.getmaji.majitest.repository.RetrofitClient
 import com.getmaji.majitest.repository.test.TestData
 import com.getmaji.majitest.base.BaseViewModel
+import com.getmaji.majitest.repository.test.TestDao
 import java.util.*
 
 class FirstViewModel : BaseViewModel() {
 
     val mResult = MutableLiveData<TestData>()
     var timer:Timer? = null
+    var dao: TestDao? = null
 
     fun initData(){
-
+        if(dao!=null){
+            mResult.value = dao!!.recent
+        }
     }
 
     fun getData() {
         launch(
             block = {
                 val result = RetrofitClient.apiService.getData()
+                dao?.insert(result)
                 mResult.value = result
             },
             error = {
@@ -42,13 +47,5 @@ class FirstViewModel : BaseViewModel() {
         timer?.purge();
         timer = null;
     }
-
-
-
-
-
-
-
-
 
 }

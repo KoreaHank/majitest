@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.getmaji.majitest.R
+import com.getmaji.majitest.repository.test.TestDataBase
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
@@ -47,6 +48,7 @@ class FirstFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.e("tag", "onActivityCreated")
         mViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         mViewModel.run {
             mResult.observe(viewLifecycleOwner, Observer {
@@ -54,7 +56,7 @@ class FirstFragment : Fragment() {
             })
         }
         if (mContext.checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            //TODO 取本地数据
+            mViewModel.dao = TestDataBase.getDatabase(mContext).testDao()
             mViewModel.initData()
         } else {
             val permissions= arrayOf<String>(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -67,11 +69,13 @@ class FirstFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Log.e("tag", "onResume")
         mViewModel.startLoop()
     }
 
     override fun onPause() {
         super.onPause()
+        Log.e("tag", "onPause")
         mViewModel.stopLoop()
     }
 
@@ -83,6 +87,7 @@ class FirstFragment : Fragment() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mViewModel.dao = TestDataBase.getDatabase(mContext).testDao()
             }
         }
     }
