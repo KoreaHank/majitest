@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.getmaji.majitest"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -44,4 +44,29 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+
+    //androidx
+    implementation rootProject.ext.dependencies["lifecycle-extensions"]
+    implementation rootProject.ext.dependencies["lifecycle-viewmodel-ktx"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["swiperefreshlayout"]
+
+    //retrofit
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-convert"]
+    implementation rootProject.ext.dependencies["retrofit-adapter"]
+    implementation rootProject.ext.dependencies["logging-interceptor"]
+
+    //rxjava
+    implementation rootProject.ext.dependencies["rxandroid"]
+    implementation rootProject.ext.dependencies["rxlifecycle"]
+
+
+    //coroutines
+    implementation rootProject.ext.dependencies["coroutines"]
+    //room
+    implementation 'androidx.room:room-runtime:2.2.5'
+    kapt 'androidx.room:room-compiler:2.2.5'
+    kapt "android.arch.persistence.room:compiler:2.2.5"
+    implementation "android.arch.persistence.room:guava:2.2.5"
 }
