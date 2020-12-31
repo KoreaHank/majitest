@@ -48,7 +48,6 @@ class FirstFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e("tag", "onActivityCreated")
         mViewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         mViewModel.run {
             mResult.observe(viewLifecycleOwner, Observer {
@@ -69,13 +68,11 @@ class FirstFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("tag", "onResume")
         mViewModel.startLoop()
     }
 
     override fun onPause() {
         super.onPause()
-        Log.e("tag", "onPause")
         mViewModel.stopLoop()
     }
 

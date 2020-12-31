@@ -116,7 +116,6 @@ class SecondFragment : Fragment() {
         }
 
         inner class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            // !! 断言
             var textview: TextView = itemView!!.findViewById(R.id.tv_data)
         }
     }
